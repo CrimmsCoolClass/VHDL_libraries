@@ -1,0 +1,8 @@
+*.cf
+*.bit
+*.bin
+*.ghw
+*.json
+*.toml
+*.svg
+OsvvmLibraries/
