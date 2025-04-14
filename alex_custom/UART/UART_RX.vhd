@@ -36,7 +36,7 @@ begin
                     clock_count <= 0;
                     bit_index   <= 0;
 
-                    if uart_inputs.RX_SERIAL = '1' then
+                    if uart_inputs.RX_SERIAL = '0' then
                         rx_state <= RX_Start;
                     else
                         rx_state <= RX_Idle;
