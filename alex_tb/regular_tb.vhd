@@ -3,14 +3,14 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use ieee.math_real.all;
 
-package testbenches is
+package regular_tb is
     procedure assert_eq(message : string; actual, expected : std_logic);
     procedure assert_eq(message : string; actual, expected : std_logic_vector);
     procedure assert_eq(message : string; actual, expected : integer);
     procedure write_UART(in_byte : in std_logic_vector(7 downto 0); signal serial_out : out std_logic; constant BIT_PERIOD : in time);
 end package;
 
-package body testbenches is
+package body regular_tb is
     procedure assert_eq(message : string; actual, expected : std_logic) is
     begin
         if actual = expected then
