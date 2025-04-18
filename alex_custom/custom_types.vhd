@@ -4,14 +4,20 @@ use ieee.numeric_std.all;
 use ieee.math_real.all;
 
 package custom_types is
-    function to_ssdca(input : integer)          return std_logic_vector;
-    function to_ssdca(input : std_logic_vector) return std_logic_vector;
-    function to_ssdcc(input : integer)          return std_logic_vector;
-    function to_ssdcc(input : std_logic_vector) return std_logic_vector;
+    function to_ssdca(input : integer)                  return std_logic_vector; --Typical bit order. a is msb
+    function to_ssdca(input : std_logic_vector)         return std_logic_vector; --ca means common anode
+    function to_ssdcc(input : integer)                  return std_logic_vector; --common cathode
+    function to_ssdcc(input : std_logic_vector)         return std_logic_vector;
+    function to_ssdca_reverse(input : integer)          return std_logic_vector; --Reverse bit order. a is lsb
+    function to_ssdca_reverse(input : std_logic_vector) return std_logic_vector;
+    function to_ssdcc_reverse(input : integer)          return std_logic_vector;
+    function to_ssdcc_reverse(input : std_logic_vector) return std_logic_vector;
+
+    
 end package custom_types;
 
 package body custom_types is
-    function to_ssdca(input: integer) return std_logic_vector is
+    function to_ssdca(input : integer) return std_logic_vector is
     begin
         case input is
             when 0      => return "0000001";
@@ -34,7 +40,7 @@ package body custom_types is
         end case;
     end function to_ssdca;
 
-    function to_ssdca(input: std_logic_vector) return std_logic_vector is
+    function to_ssdca(input : std_logic_vector) return std_logic_vector is
     begin
         case input is
             when "0000" => return "0000001";
@@ -57,7 +63,7 @@ package body custom_types is
         end case;
     end function to_ssdca;
 
-    function to_ssdcc(input: integer) return std_logic_vector is
+    function to_ssdcc(input : integer) return std_logic_vector is
     begin
         case input is
             when 0      => return "1111110";
@@ -80,7 +86,7 @@ package body custom_types is
         end case;
     end function to_ssdcc;
 
-    function to_ssdcc(input: std_logic_vector) return std_logic_vector is
+    function to_ssdcc(input : std_logic_vector) return std_logic_vector is
     begin
         case input is
             when "0000" => return "1111110";
@@ -102,4 +108,97 @@ package body custom_types is
             when others => return "0000000";
         end case;
     end function to_ssdcc;
+
+    function to_ssdca_reverse(input : integer) return std_logic_vector is
+    begin
+        case input is
+            when 0      => return "1000000";
+            when 1      => return "1111001";
+            when 2      => return "0100100";
+            when 3      => return "0110000";
+            when 4      => return "0011001";
+            when 5      => return "0010010";
+            when 6      => return "0000010";
+            when 7      => return "1111000";
+            when 8      => return "0000000";
+            when 9      => return "0011000";
+            when 10     => return "0001000";
+            when 11     => return "0000011";
+            when 12     => return "1000110";
+            when 13     => return "0100001";
+            when 14     => return "0000110";
+            when 15     => return "0001110";
+            when others => return "1111111";
+        end case;
+    end function to_ssdca_reverse;
+
+    function to_ssdca_reverse(input : std_logic_vector) return std_logic_vector is
+    begin
+        case input is
+            when "0000" => return "1000000";
+            when "0001" => return "1111001";
+            when "0010" => return "0100100";
+            when "0011" => return "0110000";
+            when "0100" => return "0011001";
+            when "0101" => return "0010010";
+            when "0110" => return "0000010";
+            when "0111" => return "1111000";
+            when "1000" => return "0000000";
+            when "1001" => return "0011000";
+            when "1010" => return "0001000";
+            when "1011" => return "0000011";
+            when "1100" => return "1000110";
+            when "1101" => return "0100001";
+            when "1110" => return "0000110";
+            when "1111" => return "0001110";
+            when others => return "1111111";
+        end case;
+    end function to_ssdca_reverse;
+
+    function to_ssdcc_reverse(input : integer) return std_logic_vector is
+    begin
+        case input is
+            when 0      => return "0111111";
+            when 1      => return "0000110";
+            when 2      => return "1011011";
+            when 3      => return "1001111";
+            when 4      => return "1100110";
+            when 5      => return "1101101";
+            when 6      => return "1111101";
+            when 7      => return "0000111";
+            when 8      => return "1111111";
+            when 9      => return "1100111";
+            when 10     => return "1110111";
+            when 11     => return "1111100";
+            when 12     => return "0111001";
+            when 13     => return "1011110";
+            when 14     => return "1111001";
+            when 15     => return "1110001";
+            when others => return "0000000";
+        end case;
+    end function to_ssdcc_reverse;
+
+    function to_ssdcc_reverse(input : std_logic_vector) return std_logic_vector is
+    begin
+        case input is
+            when "0000" => return "0111111";
+            when "0001" => return "0000110";
+            when "0010" => return "1011011";
+            when "0011" => return "1001111";
+            when "0100" => return "1100110";
+            when "0101" => return "1101101";
+            when "0110" => return "1111101";
+            when "0111" => return "0000111";
+            when "1000" => return "1111111";
+            when "1001" => return "1100111";
+            when "1010" => return "1110111";
+            when "1011" => return "1111100";
+            when "1100" => return "0111001";
+            when "1101" => return "1011110";
+            when "1110" => return "1111001";
+            when "1111" => return "1110001";
+            when others => return "0000000";
+        end case;
+    end function to_ssdcc_reverse;
+
 end package body;
