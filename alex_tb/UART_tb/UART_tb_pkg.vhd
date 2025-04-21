@@ -9,7 +9,7 @@ use UART.UART_pkg.all;
 
 package UART_tb is
     procedure write_UART(in_byte : in byte; signal serial_out : out std_logic; constant BIT_PERIOD : in time);
-    procedure check_TX(ref_data : byte; signal Tx_output : in UART_TX_OUT; constant BIT_PERIOD : in time); 
+    procedure check_TX(ref_data : byte; signal Tx_output : in UART_TX_OUT; constant BIT_PERIOD : in time; constant CLK_PERIOD : in time); 
     procedure assert_eq(message : string; actual, expected : UART_RX_OUT);
     procedure assert_eq(message : string; actual, expected : UART_TX_OUT);
 
@@ -30,12 +30,12 @@ package body UART_tb is
         wait for BIT_PERIOD;
     end procedure;
 --======================================================================================================================================================--
-    procedure check_TX(ref_data : byte; signal Tx_output : in UART_TX_OUT; constant BIT_PERIOD : in time) is
+    procedure check_TX(ref_data : byte; signal Tx_output : in UART_TX_OUT; constant BIT_PERIOD : in time; constant CLK_PERIOD : in time) is
         variable temp_byte : byte := (others => '0');
     begin
         wait until Tx_output.TX_ACTIVATE = '1';
         wait for BIT_PERIOD;
-        wait for 1 fs; --necessary otherwise behavior is inconsistent on edges 
+        wait for CLK_PERIOD / 4; --necessary otherwise behavior is inconsistent on edges 
         for i in temp_byte'reverse_range loop
             temp_byte(i) := Tx_output.TX_SERIAL;
             report "Current TX Reading: " & to_string(temp_byte);
